@@ -8,9 +8,19 @@ public class ReimbursementType {
     private String typeId;
     private String type;
 
-    public String getTypeId() { return this.typeId; };
-    public String getType() { return this.type; };
+    public String getTypeId() {
+        return typeId;
+    }
 
-    public void setTypeId(String typeId1) { this.typeId = typeId1; };
-    public void setType(String type1) { this.type = type1; };
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

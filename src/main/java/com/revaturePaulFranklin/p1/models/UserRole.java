@@ -8,9 +8,16 @@ public class UserRole {
     private String roleId;
     private String role;
 
-    public String getRoleId() { return this.roleId; };
-    public String getRole() { return this.role; };
+    public UserRole(String roleId, String role) {
+        this.roleId = roleId;
+        this.role = role;
+    }
 
-    public void setRoleId(String roleId1) { this.roleId = roleId1; };
-    public void setRole(String role1) { this.role = role1; };
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }

@@ -25,27 +25,91 @@ public class Reimbursement {
     private String statusId;
     private String typeId;
 
-    public String getReimbId() { return this.reimbId; };
-    public Integer getAmount() { return this.amount; };
-    public String getSubmitted() { return this.submitted; };
-    public String getResolved() { return this.resolved; };
-    public String getDescription() { return this.description; };
-    public String getReceipt() { return this.receipt; };
-    public String getPaymentId() { return this.paymentId; };
-    public String getAuthorId() { return this.authorId; };
-    public String getResolverId() { return this.resolverId; };
-    public String getStatusId() { return this.statusId; };
-    public String getTypeId() { return this.typeId; };
+    public String getReimbId() {
+        return reimbId;
+    }
 
-    public void setReimbId(String reimbId1) { this.reimbId = reimbId1; };
-    public void setAmount(Integer amount1) { this.amount = amount1; };
-    public void setSubmitted(String submitted1) { this.submitted = submitted1; };
-    public void setResolved(String resolved1) { this.resolved = resolved1; };
-    public void setDescription(String description1) { this.description = description1; };
-    public void setReceipt(String receipt1) { this.receipt = receipt1; };
-    public void setPaymentId(String paymentId1) { this.paymentId = paymentId1; };
-    public void setAuthorId(String authorId1) { this.authorId = authorId1; };
-    public void setResolverId(String resolverId1) { this.resolverId = resolverId1; };
-    public void setStatusId(String statusId1) { this.statusId = statusId1; };
-    public void setTypeId(String typeId1) { this.typeId = typeId1; };
+    public void setReimbId(String reimbId) {
+        this.reimbId = reimbId;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public String getSubmitted() {
+        return submitted;
+    }
+
+    public void setSubmitted(String submitted) {
+        this.submitted = submitted;
+    }
+
+    public String getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(String resolved) {
+        this.resolved = resolved;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getResolverId() {
+        return resolverId;
+    }
+
+    public void setResolverId(String resolverId) {
+        this.resolverId = resolverId;
+    }
+
+    public String getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
 }

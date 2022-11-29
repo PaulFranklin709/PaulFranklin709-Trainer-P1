@@ -8,9 +8,19 @@ public class ReimbursementStatus {
     private String statusId;
     private String status;
 
-    public String getStatusId() { return this.statusId; };
-    public String getStatus() { return this.status; };
+    public String getStatusId() {
+        return statusId;
+    }
 
-    public void setStatusId(String statusId1) { this.statusId = statusId1; };
-    public void setStatus(String status1) { this.status = status1; };
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### resources ###
+src/main/resources/db.properties
+src/main/resources/db.jwtProperties

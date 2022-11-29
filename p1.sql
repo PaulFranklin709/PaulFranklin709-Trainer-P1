@@ -1,3 +1,14 @@
+--Create and set schema
+
+--https://www.postgresql.org/docs/9.3/sql-dropschema.html
+DROP SCHEMA IF EXISTS p1 CASCADE;
+--https://www.postgresql.org/docs/9.3/sql-createschema.html
+CREATE SCHEMA IF NOT EXISTS p1;
+--https://www.postgresql.org/docs/current/ddl-schemas.html
+SET search_path TO p1;
+
+--Create tables
+
 --https://www.postgresql.org/docs/current/sql-droptable.html
 DROP TABLE IF EXISTS ERS_USER_ROLES, ERS_USERS, ERS_REIMBURSEMENT_STATUSES, ERS_REIMBURSEMENT_TYPES, ERS_REIMBURSEMENTS;
 --DROP TABLE IF EXISTS ERS_USER_ROLES;
@@ -43,3 +54,18 @@ CREATE TABLE ERS_REIMBURSEMENTS (
 	STATUS_ID VARCHAR(255) NOT NULL REFERENCES ERS_REIMBURSEMENT_STATUSES(STATUS_ID),
 	TYPE_ID VARCHAR(255) NOT NULL REFERENCES ERS_REIMBURSEMENT_TYPES(TYPE_ID)
 );
+
+--https://www.postgresql.org/docs/current/sql-insert.html
+INSERT INTO ers_user_roles
+(role_id, "role")
+VALUES('0', 'EMPLOYEE');
+INSERT INTO ers_user_roles
+(role_id, "role")
+VALUES('1', 'FINANCE MANAGER');
+INSERT INTO ers_user_roles
+(role_id, "role")
+VALUES('2', 'ADMIN');
+
+INSERT INTO ers_users
+(user_id, username, email, "password", given_name, surname, is_active, role_id)
+VALUES('0', 'paul219', 'paul219@revature.net', 'password', 'paul', 'franklin', true, '0');

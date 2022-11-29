@@ -18,23 +18,58 @@ public class User {
     private String givenName;
     private String surname;
     private Boolean isActive;
-    private String roleId;
+    private UserRole role;
 
-    public String getUserId() { return this.userId; };
-    public String getUsername() { return this.username; };
-    public String getEmail() { return this.email; };
-    public String getPassword() { return this.password; };
-    public String getGivenName() { return this.givenName; };
-    public String getSurname() { return this.surname; };
-    public Boolean getIsActive() { return this.isActive; };
-    public String getRoleId() { return this.roleId; };
+    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.givenName = givenName;
+        this.surname = surname;
+        this.isActive = isActive;
+        this.role = new UserRole("0","EMPLOYEE");
+    }
+    public User(String userId, String username, String email, String password, String givenName, String surname, Boolean isActive, UserRole userRole) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.givenName = givenName;
+        this.surname = surname;
+        this.isActive = isActive;
+        this.role = userRole;
+    }
 
-    public void setUserId(String userId1) { this.userId = userId1; };
-    public void setUsername(String username1) { this.username = username1; };
-    public void setEmail(String email1) { this.email = email1; };
-    public void setPassword(String password1) { this.password = password1; };
-    public void setGivenName(String givenName1) { this.givenName = givenName1; };
-    public void setSurname(String surname1) { this.surname = surname1; };
-    public void setIsActive(Boolean isActive1) { this.isActive = isActive1; };
-    public void setRoleId(String roleId1) { this.roleId = roleId1; };
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getGivenName() {
+        return givenName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
 }
