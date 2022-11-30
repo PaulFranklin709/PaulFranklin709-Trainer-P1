@@ -1,5 +1,9 @@
 package com.revaturePaulFranklin.p1.utils;
 
+import com.revaturePaulFranklin.p1.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,6 +12,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
+    private final Logger logger = LoggerFactory.getLogger(ConnectionFactory.class);
+
     private static ConnectionFactory connectionFactory;
     private final Properties properties = new Properties();
 
@@ -24,9 +30,17 @@ public class ConnectionFactory {
         return connectionFactory;
     }
 
-    public Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"), properties.getProperty("password"));
-        if (connection == null) throw new RuntimeException("No connection");
+    public Connection getConnection() {
+        Connection connection;
+
+        try {
+            connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"), properties.getProperty("password"));
+        }
+        catch (SQLException exception) {
+            logger.warn("No database connection.");
+            throw new RuntimeException();
+        }
+
         return connection;
     }
 }
