@@ -18,6 +18,14 @@ public class Principal {
         this.surname = surname;
         this.role = userRole.getRole();
     }
+    public Principal(String userId, String username, String email, String givenName, String surname, String role) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.givenName = givenName;
+        this.surname = surname;
+        this.role = role;
+    }
 
     public String getUserId() {
         return userId;

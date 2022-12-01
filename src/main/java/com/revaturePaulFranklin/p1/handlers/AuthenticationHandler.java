@@ -30,7 +30,7 @@ public class AuthenticationHandler {
         try {
             Principal principalSubject = userService.loginUser(requestToLoginUser);
 
-            String token = tokenService.generateToken(principalSubject);
+            String token = tokenService.createNewToken(principalSubject);
             context.res.setHeader("authorization", token);
 
             context.status(STATUS_ACCEPTED);
