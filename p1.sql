@@ -66,10 +66,6 @@ INSERT INTO ERS_USER_ROLES
 (role_id, "role")
 VALUES('2', 'ADMIN');
 
-INSERT INTO ERS_USERS
-(user_id, username, email, "password", given_name, surname, is_active, role_id)
-VALUES('0', 'paul219', 'paul219@revature.net', 'password', 'paul', 'franklin', true, '0');
-
 INSERT INTO ERS_REIMBURSEMENT_STATUSES
 (STATUS_ID, STATUS)
 VALUES('0', 'PENDING');
@@ -92,6 +88,10 @@ VALUES('2', 'FOOD');
 INSERT INTO ERS_REIMBURSEMENT_TYPES
 (TYPE_ID, TYPE)
 VALUES('3', 'OTHER');
+
+INSERT INTO ERS_USERS
+(user_id, username, email, "password", given_name, surname, is_active, role_id)
+VALUES('0', 'paul219', 'paul219@revature.net', 'password', 'paul', 'franklin', true, '2');
 
 --https://www.postgresql.org/docs/9.1/datatype-datetime.html
 --https://www.postgresql.org/docs/9.3/plpython-data.html
