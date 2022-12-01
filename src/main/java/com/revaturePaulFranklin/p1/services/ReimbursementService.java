@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 public class ReimbursementService {
@@ -32,5 +33,9 @@ public class ReimbursementService {
         );
 
         reimbursementDAO.createReimbursementTicket(reimbursement);
+    }
+
+    public List<Reimbursement> showAllReimbursementTicket() {
+        return reimbursementDAO.getAllReimbursementTickets();
     }
 }
