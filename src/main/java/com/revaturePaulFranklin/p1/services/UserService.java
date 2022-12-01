@@ -38,7 +38,7 @@ public class UserService {
             throw new InvalidAuthenticationException();
         }
 
-        return new Principal(user.getUserId(), user.getUsername(), user.getRole());
+        return new Principal(user.getUserId(), user.getUsername(), user.getEmail(), user.getGivenName(), user.getSurname(), user.getRole());
     }
 
     private void newUserHasPassword(User newUser)
