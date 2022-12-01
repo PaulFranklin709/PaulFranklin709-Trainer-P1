@@ -68,7 +68,7 @@ public class ReimbursementHandler {
             context.status(STATUS_CREATED);
             context.json(listOfAllReimbursements);
         } catch (InvalidAuthenticationException exception) {
-            logger.warn("Failed to create new Reimbursement from handler.");
+            logger.warn("Failed to show all Reimbursements from handler.");
 
 //            https://github.com/221114-Java-React/Resources/blob/5c14d956b8dc2e95878f21e42a959fda022fa3a4/week3-rest/intro-web-http.md
             context.status(STATUS_UNAUTHORIZED);
