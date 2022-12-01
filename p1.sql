@@ -94,7 +94,7 @@ INSERT INTO ERS_REIMBURSEMENT_TYPES
 VALUES('3', 'OTHER');
 
 --https://www.postgresql.org/docs/9.1/datatype-datetime.html
---TIMESTAMP '2004-10-19 10:23:54'
+--https://www.postgresql.org/docs/9.3/plpython-data.html
 INSERT INTO ERS_REIMBURSEMENTS
 (REIMB_ID,AMOUNT,SUBMITTED,RESOLVED,DESCRIPTION,RECEIPT,PAYMENT_ID,AUTHOR_ID,RESOLVER_ID,STATUS_ID,TYPE_ID)
 VALUES('0', 1.23, '2022-12-01 00:00:00', NULL, 'first reimbursement ticket description', NULL, NULL, '0', NULL, '0', '0')
