@@ -72,7 +72,7 @@ public class ReimbursementDAO {
         return listOfAllReimbursements;
     }
 
-    public void approveReimbursementTicket(String reimbId, Timestamp myTime) {
+    public void approveReimbursementTicket(String reimbId, Timestamp myTime, String userId) {
         try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
 //            https://www.postgresql.org/docs/current/ddl-schemas.html
 //            https://www.postgresql.org/docs/current/sql-update.html
@@ -85,6 +85,11 @@ public class ReimbursementDAO {
             preparedSqlStatement.setString(1, "1");
             preparedSqlStatement.setString(2, reimbId);
             preparedSqlStatement.executeUpdate();
+
+            preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET RESOLVER_ID = ? WHERE REIMB_ID = ?");
+            preparedSqlStatement.setString(1, userId);
+            preparedSqlStatement.setString(2, reimbId);
+            preparedSqlStatement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
             logger.error("Failed to get approve Reimbursement in database.");
@@ -92,7 +97,7 @@ public class ReimbursementDAO {
         }
     }
 
-    public void denyReimbursementTicket(String reimbId, Timestamp myTime) {
+    public void denyReimbursementTicket(String reimbId, Timestamp myTime, String userId) {
         try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
 //            https://www.postgresql.org/docs/current/ddl-schemas.html
 //            https://www.postgresql.org/docs/current/sql-update.html
@@ -103,6 +108,11 @@ public class ReimbursementDAO {
 
             preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET STATUS_ID = ? WHERE REIMB_ID = ?");
             preparedSqlStatement.setString(1, "2");
+            preparedSqlStatement.setString(2, reimbId);
+            preparedSqlStatement.executeUpdate();
+
+            preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET RESOLVER_ID = ? WHERE REIMB_ID = ?");
+            preparedSqlStatement.setString(1, userId);
             preparedSqlStatement.setString(2, reimbId);
             preparedSqlStatement.executeUpdate();
         } catch (SQLException exception) {

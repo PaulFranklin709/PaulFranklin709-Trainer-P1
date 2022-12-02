@@ -86,7 +86,7 @@ public class ReimbursementHandler {
                 throw new InvalidAuthenticationException();
             }
 
-            reimbursementService.approveReimbursementTicket(requestToApproveReimbursementTicket.getReimbId());
+            reimbursementService.approveReimbursementTicket(requestToApproveReimbursementTicket.getReimbId(), principal);
 
             context.status(STATUS_ACCEPTED);
         } catch (InvalidAuthenticationException exception) {
@@ -111,7 +111,7 @@ public class ReimbursementHandler {
                 throw new InvalidAuthenticationException();
             }
 
-            reimbursementService.denyReimbursementTicket(requestToDenyReimbursementTicket.getReimbId());
+            reimbursementService.denyReimbursementTicket(requestToDenyReimbursementTicket.getReimbId(), principal);
 
             context.status(STATUS_ACCEPTED);
         } catch (InvalidAuthenticationException exception) {

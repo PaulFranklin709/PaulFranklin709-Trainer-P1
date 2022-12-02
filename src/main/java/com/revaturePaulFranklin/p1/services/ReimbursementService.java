@@ -40,7 +40,7 @@ public class ReimbursementService {
         return reimbursementDAO.getAllPendingReimbursementTickets();
     }
 
-    public void approveReimbursementTicket(String reimbId) {
+    public void approveReimbursementTicket(String reimbId, Principal principal) {
         boolean isResolved = reimbursementDAO.getIsResolvedReimbursementTicket(reimbId);
 
         if (isResolved) {
@@ -48,10 +48,10 @@ public class ReimbursementService {
         }
 
         Timestamp myTime = new Timestamp(System.currentTimeMillis());
-        reimbursementDAO.approveReimbursementTicket(reimbId, myTime);
+        reimbursementDAO.approveReimbursementTicket(reimbId, myTime, principal.getUserId());
     }
 
-    public void denyReimbursementTicket(String reimbId) {
+    public void denyReimbursementTicket(String reimbId, Principal principal) {
         boolean isResolved = reimbursementDAO.getIsResolvedReimbursementTicket(reimbId);
 
         if (isResolved) {
@@ -59,6 +59,6 @@ public class ReimbursementService {
         }
 
         Timestamp myTime = new Timestamp(System.currentTimeMillis());
-        reimbursementDAO.denyReimbursementTicket(reimbId, myTime);
+        reimbursementDAO.denyReimbursementTicket(reimbId, myTime, principal.getUserId());
     }
 }
