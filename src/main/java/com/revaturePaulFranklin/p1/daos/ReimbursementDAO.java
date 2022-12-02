@@ -1,17 +1,12 @@
 package com.revaturePaulFranklin.p1.daos;
 
 import com.revaturePaulFranklin.p1.models.Reimbursement;
-import com.revaturePaulFranklin.p1.models.User;
-import com.revaturePaulFranklin.p1.models.UserRole;
 import com.revaturePaulFranklin.p1.utils.ConnectionFactory;
 import com.revaturePaulFranklin.p1.utils.custom_exceptions.InvalidReimbursementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +38,12 @@ public class ReimbursementDAO {
         }
     }
 
-    public List<Reimbursement> getAllReimbursementTickets() {
+    public List<Reimbursement> getAllPendingReimbursementTickets() {
         List<Reimbursement> listOfAllReimbursements = new ArrayList<>();
 
         try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
 //            https://www.postgresql.org/docs/current/ddl-schemas.html
-            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("SELECT * FROM p1.ERS_REIMBURSEMENTS");
+            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("SELECT * FROM p1.ERS_REIMBURSEMENTS WHERE RESOLVED IS NULL");
             ResultSet sqlResultSet = preparedSqlStatement.executeQuery();
 
             while (sqlResultSet.next()) {
@@ -75,5 +70,66 @@ public class ReimbursementDAO {
         }
 
         return listOfAllReimbursements;
+    }
+
+    public void approveReimbursementTicket(String reimbId, Timestamp myTime) {
+        try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
+//            https://www.postgresql.org/docs/current/ddl-schemas.html
+//            https://www.postgresql.org/docs/current/sql-update.html
+            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET RESOLVED = ? WHERE REIMB_ID = ?");
+            preparedSqlStatement.setTimestamp(1, myTime);
+            preparedSqlStatement.setString(2, reimbId);
+            preparedSqlStatement.executeUpdate();
+
+            preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET STATUS_ID = ? WHERE REIMB_ID = ?");
+            preparedSqlStatement.setString(1, "1");
+            preparedSqlStatement.setString(2, reimbId);
+            preparedSqlStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            logger.error("Failed to get approve Reimbursement in database.");
+            throw new InvalidReimbursementException();
+        }
+    }
+
+    public void denyReimbursementTicket(String reimbId, Timestamp myTime) {
+        try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
+//            https://www.postgresql.org/docs/current/ddl-schemas.html
+//            https://www.postgresql.org/docs/current/sql-update.html
+            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET RESOLVED = ? WHERE REIMB_ID = ?");
+            preparedSqlStatement.setTimestamp(1, myTime);
+            preparedSqlStatement.setString(2, reimbId);
+            preparedSqlStatement.executeUpdate();
+
+            preparedSqlStatement = sqlConnection.prepareStatement("UPDATE p1.ERS_REIMBURSEMENTS SET STATUS_ID = ? WHERE REIMB_ID = ?");
+            preparedSqlStatement.setString(1, "2");
+            preparedSqlStatement.setString(2, reimbId);
+            preparedSqlStatement.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            logger.error("Failed to get deny Reimbursement in database.");
+            throw new InvalidReimbursementException();
+        }
+    }
+
+    public boolean getIsResolvedReimbursementTicket(String reimbId) {
+        try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
+//            https://www.postgresql.org/docs/current/ddl-schemas.html
+            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("SELECT COUNT(REIMB_ID) FROM p1.ERS_REIMBURSEMENTS WHERE REIMB_ID = ? AND RESOLVED IS NOT NULL");
+            preparedSqlStatement.setString(1, reimbId);
+            ResultSet sqlResultSet = preparedSqlStatement.executeQuery();
+
+            if (sqlResultSet.next()) {
+                if (Integer.parseInt(sqlResultSet.getString("count")) == 1) {
+                    return true;
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            logger.error("Failed to get unres Reimbursement in database.");
+            throw new InvalidReimbursementException();
+        }
+
+        return false;
     }
 }

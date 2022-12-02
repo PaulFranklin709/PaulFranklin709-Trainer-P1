@@ -1,6 +1,6 @@
 package com.revaturePaulFranklin.p1.handlers;
 
-import com.revaturePaulFranklin.p1.dtos.requests.LoginRequest;
+import com.revaturePaulFranklin.p1.dtos.responses.requests.LoginRequest;
 import com.revaturePaulFranklin.p1.dtos.responses.Principal;
 import com.revaturePaulFranklin.p1.services.TokenService;
 import com.revaturePaulFranklin.p1.services.UserService;

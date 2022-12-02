@@ -1,6 +1,6 @@
 package com.revaturePaulFranklin.p1.handlers;
 
-import com.revaturePaulFranklin.p1.dtos.requests.NewUserRequest;
+import com.revaturePaulFranklin.p1.dtos.responses.requests.NewUserRequest;
 import com.revaturePaulFranklin.p1.services.UserService;
 import com.revaturePaulFranklin.p1.utils.custom_exceptions.InvalidUserException;
 import io.javalin.http.Context;

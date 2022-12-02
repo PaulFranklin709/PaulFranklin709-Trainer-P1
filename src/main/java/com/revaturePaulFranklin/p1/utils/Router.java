@@ -46,6 +46,12 @@ public class Router {
             path("/show_reimbursement_tickets", () -> {
                 post(context -> reimbursementHandler.showAllReimbursementTickets(context));
             });
+            path("/approve_reimbursement_ticket", () -> {
+                post(context -> reimbursementHandler.approveReimbursementTicket(context));
+            });
+            path("/deny_reimbursement_ticket", () -> {
+                post(context -> reimbursementHandler.denyReimbursementTicket(context));
+            });
         });
     }
 }

@@ -1,9 +1,10 @@
 package com.revaturePaulFranklin.p1.services;
 
 import com.revaturePaulFranklin.p1.daos.ReimbursementDAO;
-import com.revaturePaulFranklin.p1.dtos.requests.SubmitReimbursementTicketRequest;
+import com.revaturePaulFranklin.p1.dtos.responses.requests.SubmitReimbursementTicketRequest;
 import com.revaturePaulFranklin.p1.dtos.responses.Principal;
 import com.revaturePaulFranklin.p1.models.Reimbursement;
+import com.revaturePaulFranklin.p1.utils.custom_exceptions.InvalidReimbursementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,28 @@ public class ReimbursementService {
     }
 
     public List<Reimbursement> showAllReimbursementTicket() {
-        return reimbursementDAO.getAllReimbursementTickets();
+        return reimbursementDAO.getAllPendingReimbursementTickets();
+    }
+
+    public void approveReimbursementTicket(String reimbId) {
+        boolean isResolved = reimbursementDAO.getIsResolvedReimbursementTicket(reimbId);
+
+        if (isResolved) {
+            throw new InvalidReimbursementException();
+        }
+
+        Timestamp myTime = new Timestamp(System.currentTimeMillis());
+        reimbursementDAO.approveReimbursementTicket(reimbId, myTime);
+    }
+
+    public void denyReimbursementTicket(String reimbId) {
+        boolean isResolved = reimbursementDAO.getIsResolvedReimbursementTicket(reimbId);
+
+        if (isResolved) {
+            throw new InvalidReimbursementException();
+        }
+
+        Timestamp myTime = new Timestamp(System.currentTimeMillis());
+        reimbursementDAO.denyReimbursementTicket(reimbId, myTime);
     }
 }

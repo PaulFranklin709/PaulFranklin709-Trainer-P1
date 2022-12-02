@@ -1,8 +1,8 @@
 package com.revaturePaulFranklin.p1.services;
 
 import com.revaturePaulFranklin.p1.daos.UserDAO;
-import com.revaturePaulFranklin.p1.dtos.requests.LoginRequest;
-import com.revaturePaulFranklin.p1.dtos.requests.NewUserRequest;
+import com.revaturePaulFranklin.p1.dtos.responses.requests.LoginRequest;
+import com.revaturePaulFranklin.p1.dtos.responses.requests.NewUserRequest;
 import com.revaturePaulFranklin.p1.dtos.responses.Principal;
 import com.revaturePaulFranklin.p1.models.User;
 import com.revaturePaulFranklin.p1.utils.custom_exceptions.InvalidAuthenticationException;

@@ -1,4 +1,4 @@
-package com.revaturePaulFranklin.p1.dtos.requests;
+package com.revaturePaulFranklin.p1.dtos.responses.requests;
 
 import javax.servlet.http.HttpServletRequest;
 
