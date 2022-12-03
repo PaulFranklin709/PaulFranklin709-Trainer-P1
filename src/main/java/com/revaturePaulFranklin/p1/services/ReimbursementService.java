@@ -36,8 +36,12 @@ public class ReimbursementService {
         reimbursementDAO.createReimbursementTicket(reimbursement);
     }
 
-    public List<Reimbursement> showAllReimbursementTicket() {
+    public List<Reimbursement> showAllReimbursementTickets() {
         return reimbursementDAO.getAllPendingReimbursementTickets();
+    }
+
+    public List<Reimbursement> showMyReimbursementTickets(Principal principal) {
+        return reimbursementDAO.getAllUserReimbursementTickets(principal.getUserId());
     }
 
     public void approveReimbursementTicket(String reimbId, Principal principal) {

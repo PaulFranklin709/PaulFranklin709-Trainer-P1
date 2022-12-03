@@ -1,9 +1,6 @@
 package com.revaturePaulFranklin.p1.handlers;
 
-import com.revaturePaulFranklin.p1.dtos.responses.requests.ApproveReimbursementTicketsRequest;
-import com.revaturePaulFranklin.p1.dtos.responses.requests.DenyReimbursementTicketsRequest;
-import com.revaturePaulFranklin.p1.dtos.responses.requests.ShowAllReimbursementTicketsRequest;
-import com.revaturePaulFranklin.p1.dtos.responses.requests.SubmitReimbursementTicketRequest;
+import com.revaturePaulFranklin.p1.dtos.responses.requests.*;
 import com.revaturePaulFranklin.p1.dtos.responses.Principal;
 import com.revaturePaulFranklin.p1.models.Reimbursement;
 import com.revaturePaulFranklin.p1.services.ReimbursementService;
@@ -64,12 +61,30 @@ public class ReimbursementHandler {
                 throw new InvalidAuthenticationException();
             }
 
-            List<Reimbursement> listOfAllReimbursements = reimbursementService.showAllReimbursementTicket();
+            List<Reimbursement> listOfAllReimbursements = reimbursementService.showAllReimbursementTickets();
 
-            context.status(STATUS_CREATED);
+            context.status(STATUS_ACCEPTED);
             context.json(listOfAllReimbursements);
         } catch (InvalidAuthenticationException exception) {
             logger.warn("Failed to show all Reimbursements from handler.");
+
+//            https://github.com/221114-Java-React/Resources/blob/5c14d956b8dc2e95878f21e42a959fda022fa3a4/week3-rest/intro-web-http.md
+            context.status(STATUS_UNAUTHORIZED);
+        }
+    }
+
+    public void showMyReimbursementTickets(Context context) {
+        ShowMyReimbursementTicketsRequest requestToShowMyReimbursementTickets = new ShowMyReimbursementTicketsRequest(context.req);
+
+        try {
+            Principal principal = tokenService.retrievePrincipalFromToken(requestToShowMyReimbursementTickets.getToken());
+
+            List<Reimbursement> listOfAllReimbursements = reimbursementService.showMyReimbursementTickets(principal);
+
+            context.status(STATUS_ACCEPTED);
+            context.json(listOfAllReimbursements);
+        } catch (InvalidAuthenticationException exception) {
+            logger.warn("Failed to show my Reimbursements from handler.");
 
 //            https://github.com/221114-Java-React/Resources/blob/5c14d956b8dc2e95878f21e42a959fda022fa3a4/week3-rest/intro-web-http.md
             context.status(STATUS_UNAUTHORIZED);

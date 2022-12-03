@@ -72,6 +72,41 @@ public class ReimbursementDAO {
         return listOfAllReimbursements;
     }
 
+    public List<Reimbursement> getAllUserReimbursementTickets(String userId) {
+        List<Reimbursement> listOfAllReimbursements = new ArrayList<>();
+
+        try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
+//            https://www.postgresql.org/docs/current/ddl-schemas.html
+            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("SELECT * FROM p1.ERS_REIMBURSEMENTS WHERE AUTHOR_ID = ?");
+            preparedSqlStatement.setString(1, userId);
+            ResultSet sqlResultSet = preparedSqlStatement.executeQuery();
+
+            while (sqlResultSet.next()) {
+                Reimbursement reimbursement = new Reimbursement(
+                        sqlResultSet.getString("REIMB_ID"),
+                        sqlResultSet.getDouble("AMOUNT"),
+                        sqlResultSet.getTimestamp("SUBMITTED"),
+                        sqlResultSet.getTimestamp("RESOLVED"),
+                        sqlResultSet.getString("DESCRIPTION"),
+                        sqlResultSet.getBytes("RECEIPT"),
+                        sqlResultSet.getString("PAYMENT_ID"),
+                        sqlResultSet.getString("AUTHOR_ID"),
+                        sqlResultSet.getString("RESOLVER_ID"),
+                        sqlResultSet.getString("STATUS_ID"),
+                        sqlResultSet.getString("TYPE_ID")
+                );
+
+                listOfAllReimbursements.add(reimbursement);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            logger.error("Failed to get all Reimbursements from database.");
+            throw new InvalidReimbursementException();
+        }
+
+        return listOfAllReimbursements;
+    }
+
     public void approveReimbursementTicket(String reimbId, Timestamp myTime, String userId) {
         try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
 //            https://www.postgresql.org/docs/current/ddl-schemas.html
