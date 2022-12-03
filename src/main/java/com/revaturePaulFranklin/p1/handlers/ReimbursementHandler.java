@@ -79,7 +79,13 @@ public class ReimbursementHandler {
         try {
             Principal principal = tokenService.retrievePrincipalFromToken(requestToShowMyReimbursementTickets.getToken());
 
-            List<Reimbursement> listOfAllReimbursements = reimbursementService.showMyReimbursementTickets(principal);
+            List<Reimbursement> listOfAllReimbursements;
+            if (requestToShowMyReimbursementTickets.getStatusId() == null) {
+                listOfAllReimbursements = reimbursementService.showMyReimbursementTickets(principal);
+            }
+            else {
+                listOfAllReimbursements = reimbursementService.showMyReimbursementTickets(principal, requestToShowMyReimbursementTickets.getStatusId());
+            }
 
             context.status(STATUS_ACCEPTED);
             context.json(listOfAllReimbursements);

@@ -73,7 +73,7 @@ public class ReimbursementDAO {
     }
 
     public List<Reimbursement> getAllUserReimbursementTickets(String userId) {
-        List<Reimbursement> listOfAllReimbursements = new ArrayList<>();
+        List<Reimbursement> listOfReimbursements = new ArrayList<>();
 
         try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
 //            https://www.postgresql.org/docs/current/ddl-schemas.html
@@ -96,15 +96,51 @@ public class ReimbursementDAO {
                         sqlResultSet.getString("TYPE_ID")
                 );
 
-                listOfAllReimbursements.add(reimbursement);
+                listOfReimbursements.add(reimbursement);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
-            logger.error("Failed to get all Reimbursements from database.");
+            logger.error("Failed to get User Reimbursements from database.");
             throw new InvalidReimbursementException();
         }
 
-        return listOfAllReimbursements;
+        return listOfReimbursements;
+    }
+
+    public List<Reimbursement> getAllUserReimbursementTickets(String userId, String statusId) {
+        List<Reimbursement> listOfReimbursements = new ArrayList<>();
+
+        try (Connection sqlConnection = ConnectionFactory.getInstance().getConnection()) {
+//            https://www.postgresql.org/docs/current/ddl-schemas.html
+            PreparedStatement preparedSqlStatement = sqlConnection.prepareStatement("SELECT * FROM p1.ERS_REIMBURSEMENTS WHERE AUTHOR_ID = ? AND STATUS_ID = ?");
+            preparedSqlStatement.setString(1, userId);
+            preparedSqlStatement.setString(2, statusId);
+            ResultSet sqlResultSet = preparedSqlStatement.executeQuery();
+
+            while (sqlResultSet.next()) {
+                Reimbursement reimbursement = new Reimbursement(
+                        sqlResultSet.getString("REIMB_ID"),
+                        sqlResultSet.getDouble("AMOUNT"),
+                        sqlResultSet.getTimestamp("SUBMITTED"),
+                        sqlResultSet.getTimestamp("RESOLVED"),
+                        sqlResultSet.getString("DESCRIPTION"),
+                        sqlResultSet.getBytes("RECEIPT"),
+                        sqlResultSet.getString("PAYMENT_ID"),
+                        sqlResultSet.getString("AUTHOR_ID"),
+                        sqlResultSet.getString("RESOLVER_ID"),
+                        sqlResultSet.getString("STATUS_ID"),
+                        sqlResultSet.getString("TYPE_ID")
+                );
+
+                listOfReimbursements.add(reimbursement);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            logger.error("Failed to get User Reimbursements from database.");
+            throw new InvalidReimbursementException();
+        }
+
+        return listOfReimbursements;
     }
 
     public void approveReimbursementTicket(String reimbId, Timestamp myTime, String userId) {

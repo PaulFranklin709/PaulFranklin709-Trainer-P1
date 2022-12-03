@@ -44,6 +44,10 @@ public class ReimbursementService {
         return reimbursementDAO.getAllUserReimbursementTickets(principal.getUserId());
     }
 
+    public List<Reimbursement> showMyReimbursementTickets(Principal principal, String statusId) {
+        return reimbursementDAO.getAllUserReimbursementTickets(principal.getUserId(), statusId);
+    }
+
     public void approveReimbursementTicket(String reimbId, Principal principal) {
         boolean isResolved = reimbursementDAO.getIsResolvedReimbursementTicket(reimbId);
 
