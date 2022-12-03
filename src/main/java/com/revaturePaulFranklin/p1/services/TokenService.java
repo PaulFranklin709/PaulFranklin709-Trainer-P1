@@ -1,7 +1,6 @@
 package com.revaturePaulFranklin.p1.services;
 
 import com.revaturePaulFranklin.p1.dtos.responses.Principal;
-import com.revaturePaulFranklin.p1.handlers.AuthenticationHandler;
 import com.revaturePaulFranklin.p1.utils.JwtConfiguration;
 import com.revaturePaulFranklin.p1.utils.custom_exceptions.InvalidAuthenticationException;
 import io.jsonwebtoken.Claims;
